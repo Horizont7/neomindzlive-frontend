@@ -1,0 +1,410 @@
+:root{
+  --paper:#f7f3ea;
+  --ink:#111318;
+  --muted:#3b3f4a;
+  --gold:#b08d3a;
+  --line:rgba(17,19,24,.18);
+  --shadow: 0 18px 45px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:#0b0e1a;
+  color:var(--ink);
+}
+
+.page{
+  min-height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:20px;
+}
+
+.sheet{
+  position:relative;
+  width:210mm;
+  height:297mm;
+  background:var(--paper);
+  box-shadow:var(--shadow);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* texture */
+.guilloche{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(176,141,58,.18), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(176,141,58,.14), transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(176,141,58,.12), transparent 48%),
+    repeating-radial-gradient(circle at 50% 50%,
+      rgba(17,19,24,.05) 0 1px,
+      transparent 1px 5px),
+    repeating-linear-gradient(135deg,
+      rgba(176,141,58,.06) 0 2px,
+      transparent 2px 10px);
+  opacity:.9;
+  pointer-events:none;
+}
+
+/* watermark */
+.watermark{
+  position:absolute; inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transform: rotate(-24deg);
+  opacity:.06;
+  letter-spacing:6px;
+  font-weight:900;
+  font-size:42px;
+  color:#0b0e1a;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+
+/* inner frame */
+.frame{
+  position:absolute;
+  inset:18mm 14mm;
+  border-radius:12px;
+  background: rgba(255,255,255,.14);
+  border: 2.5px solid rgba(176,141,58,.65);
+  outline: 1.5px solid rgba(17,19,24,.18);
+  outline-offset: -10px;
+  padding: 18mm 16mm;
+}
+
+/* header */
+.header{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  padding-bottom:10mm;
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex; align-items:center; gap:12px;}
+.brand-mark{
+  width:46px;height:46px;border-radius:12px;
+  border:1px solid rgba(176,141,58,.75);
+  display:grid;place-items:center;
+  font-weight:900;color:#7a6228;
+  background: rgba(176,141,58,.10);
+}
+.brand-name{
+  font-family: Georgia, "Times New Roman", serif;
+  font-size:20px; font-weight:900;
+}
+.brand-sub{
+  font-size:11px; letter-spacing:1px;
+  color:var(--muted);
+}
+.meta{min-width:240px;font-size:12px;color:var(--muted);}
+.meta-row{
+  display:flex;justify-content:space-between;gap:10px;
+  padding:4px 0;border-bottom:1px dashed rgba(17,19,24,.15);
+}
+.meta-label{font-weight:800;color:#2a2f3a}
+.meta-val{font-variant-numeric: tabular-nums}
+
+/* titles */
+.title-wrap{text-align:center; padding:10mm 0 8mm;}
+.kicker{
+  font-size:12px; letter-spacing:2.8px; text-transform:uppercase;
+  color:#7a6228; font-weight:900;
+}
+.title{
+  margin:8px 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size:42px;
+}
+.subtitle{color:var(--muted); font-size:13px;}
+
+/* person */
+.person{text-align:center; padding:2mm 0 8mm;}
+.person .label{
+  color:var(--muted); font-size:12px;
+  letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:8px;
+}
+.name{
+  font-family: Georgia, "Times New Roman", serif;
+  font-size:34px; font-weight:900;
+  display:inline-block;
+  min-width:60%;
+  padding:6px 10px 10px;
+  border-bottom:1px solid rgba(176,141,58,.55);
+}
+.desc{margin-top:10px;font-size:13px;color:var(--muted);}
+
+/* result */
+.result{
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:12mm;
+  padding:6mm 0 10mm;
+}
+
+/* IQ SCORE box (final working state — unchanged) */
+.score-box{
+  border:1.5px solid rgba(176,141,58,.55);
+  border-radius:12px;
+  background: rgba(255,255,255,.22);
+  position:relative;
+
+  /* final effective values from your overrides */
+  min-height: 0 !important;
+  height: 56mm !important;
+  padding: 8mm 10mm !important;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.score-label{
+  text-align:center;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-weight:900;
+  color:#7a6228;
+  font-size:12px;
+}
+.score{
+  text-align:center;
+  font-size:76px;
+  line-height:1;
+  font-weight:900;
+  margin:10px 0 6px;
+}
+.score-note{text-align:center;color:var(--muted);font-size:12px;}
+
+.details{display:flex;flex-direction:column;gap:10px;}
+.detail{
+  padding:10px 12px;
+  border:1px solid rgba(17,19,24,.12);
+  border-radius:10px;
+  background: rgba(255,255,255,.18);
+}
+.d-label{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+.d-val{
+  margin-top:4px;
+  font-size:14px;
+  font-weight:900;
+}
+
+/* signature block (left) — final working state (unchanged) */
+.sig{
+  position:relative;
+  padding-bottom:10mm; /* kept */
+}
+.sig-imgbox{
+  width: 70mm;
+  height: 26mm;
+  overflow: visible;
+  margin-bottom: 2mm;
+}
+.sig-imgbox img{
+  height: 50mm;                 /* kept */
+  width: auto;
+  display:block;
+  transform: translate(8mm, -6mm); /* kept */
+}
+.sig-line{
+  width: 92mm;
+  border-bottom:1.6px solid rgba(17,19,24,.45);
+  margin: 2mm 0 2mm;
+  margin-top:0 !important;
+}
+
+/* examiner text locked in place — kept */
+.sig-name{
+  font-weight:900;
+  position:absolute;
+  left:0;
+  bottom:5mm;
+  margin:0 !important;
+}
+.sig-role{
+  font-size:12px;
+  color:var(--muted);
+  position:absolute;
+  left:0;
+  bottom:0mm;
+  margin:0 !important;
+}
+
+/* stamp block (right) — final working state (unchanged) */
+.stamp{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+}
+.stamp-wrap{
+  width: 48mm;
+  height: 48mm;
+  display:grid;
+  place-items:center;
+  opacity: .880;
+
+  /* FINAL effective transform (only this one kept) */
+  transform: translateX(15mm) translateY(-60mm) rotate(-15deg);
+}
+.stamp-wrap img{
+  width: 100mm;     /* kept (you said don't touch sizes) */
+  height: 100mm;    /* kept */
+  object-fit: contain;
+  display:block;
+}
+
+/* footer lift — kept */
+.footer{
+  margin-top: 0 !important;
+  transform: translateY(-6mm);
+}
+
+/* Logo ramkasi (avvalgi o'lcham saqlanadi) */
+.brand-mark{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  border:1px solid rgba(176,141,58,.75);
+  background: rgba(176,141,58,.10);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden; /* muhim */
+}
+
+/* Logo rasm ramkani to‘liq to‘ldiradi */
+.brand-mark img{
+  width: 65px;
+  height:80px;
+  object-fit: cover;   /* ramkani to‘liq yopadi */
+  display:block;
+}
+
+
+
+/* Printda tugmalar chiqmasin */
+@media print{
+  .no-print{ display:none !important; }
+}
+
+
+/* print */
+@media print{
+  body{background:#fff}
+  .sheet{box-shadow:none;border-radius:0}
+}
+
+/* ====== ACTION BUTTONS (LOCKED under certificate) ====== */
+
+/* .page anchor bo'lsin (shart) */
+.page{
+  position: relative;
+  padding-bottom: 120px; /* tugmalar uchun joy */
+}
+
+/* Tugmalar sertifikat (sheet) tagida, markazda turadi */
+.actions{
+  position: absolute;
+  left: 50%;
+  top: calc(297mm + 28px);   /* sheet balandligi + masofa */
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 12px;
+  z-index: 50;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  background: rgba(17,19,24,.55);
+  border: 1px solid rgba(176,141,58,.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,255,255,.06) inset;
+}
+
+/* Tugmalar dizayni */
+.actions .btn{
+  appearance: none;
+  border: 1px solid rgba(176,141,58,.60);
+  background: linear-gradient(180deg, rgba(176,141,58,.28), rgba(176,141,58,.12));
+  color: rgba(255,255,255,.92);
+
+  padding: 10px 16px;
+  border-radius: 12px;
+
+  font-weight: 850;
+  font-size: 13px;
+  letter-spacing: .2px;
+  line-height: 1;
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.30),
+    0 0 0 1px rgba(255,255,255,.05) inset;
+}
+
+.actions .btn:hover{
+  border-color: rgba(176,141,58,.82);
+  background: linear-gradient(180deg, rgba(176,141,58,.36), rgba(176,141,58,.16));
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 28px rgba(0,0,0,.34),
+    0 0 0 1px rgba(255,255,255,.06) inset;
+}
+
+.actions .btn:active{
+  transform: translateY(0);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.28),
+    0 0 0 1px rgba(255,255,255,.04) inset;
+}
+
+.actions .btn:focus{ outline: none; }
+.actions .btn:focus-visible{
+  box-shadow:
+    0 0 0 3px rgba(176,141,58,.35),
+    0 14px 28px rgba(0,0,0,.34);
+}
+
+/* Reset (ghost) */
+.actions .btn.ghost{
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.20);
+  color: rgba(255,255,255,.90);
+}
+
+.actions .btn.ghost:hover{
+  background: rgba(255,255,255,.11);
+  border-color: rgba(255,255,255,.28);
+}
+
+/* Printda tugmalar chiqmasin */
+@media print{
+  .no-print{ display:none !important; }
+}
