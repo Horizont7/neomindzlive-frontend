@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NeoMindzLive — Result</title>
+  <link rel="stylesheet" href="./css/result.css" />
+</head>
+<body class="page">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./en.html">
+        <img class="brand-logo" src="./assets/logo/logo.png" alt="NeoMindzLive" onerror="this.style.display='none'">
+        <span class="brand-name">NeoMindzLive</span>
+      </a>
+      <div class="topbar-right">
+        <a class="ghost" href="./test.html">Retake (new test)</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1 class="title">Your Result</h1>
+      <p class="sub" id="statusText">Loading…</p>
+
+      <div id="lockedBox" class="locked" hidden>
+        <div class="lockRow">
+          <div class="lockIcon">🔒</div>
+          <div>
+            <div class="lockTitle">Result is locked</div>
+            <div class="lockSub">Pay $1.49 to unlock your IQ score and report.</div>
+          </div>
+        </div>
+        <button id="unlockBtn" class="btn" type="button">$1.49 — Unlock result</button>
+        <div class="hint">One-time payment • unlocks only this completed test</div>
+      </div>
+
+      <div id="resultBox" class="result" hidden>
+        <div class="grid">
+          <div class="metric">
+            <div class="label">IQ</div>
+            <div class="value" id="iqVal">—</div>
+          </div>
+          <div class="metric">
+            <div class="label">Percentile</div>
+            <div class="value" id="percVal">—</div>
+          </div>
+        </div>
+
+        <div class="note">
+          If you retake the test, your next result will be locked again and requires another payment.
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script>
+(() => {
+  // ===== CONFIG =====
+  const API_BASE = (window.NEO_API_BASE || "http://127.0.0.1:8000").replace(/\/$/, "");
+
+  // ===== USER ID (unified) =====
+  function getUserId() {
+    let id = localStorage.getItem("neo_user_id");
+    if (!id) {
+      id = "user_" + crypto.randomUUID();
+      localStorage.setItem("neo_user_id", id);
+    }
+    return id;
+  }
+  const USER_ID = getUserId();
+
+  // ===== DOM =====
+  const statusText = document.getElementById("statusText");
+  const lockedBox  = document.getElementById("lockedBox");
+  const resultBox  = document.getElementById("resultBox");
+  const unlockBtn  = document.getElementById("unlockBtn");
+  const iqVal      = document.getElementById("iqVal");
+  const percVal    = document.getElementById("percVal");
+
+  // ===== session_id from URL =====
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get("session_id");
+
+  if (!sessionId) {
+    statusText.textContent = "Missing session_id. Please retake the test.";
+    lockedBox.hidden = true;
+    resultBox.hidden = true;
+    return;
+  }
+
+  async function api(path, { method="GET", body } = {}) {
+    const res = await fetch(API_BASE + path, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        "X-User-Id": USER_ID
+      },
+      body: body ? JSON.stringify(body) : undefined
+    });
+
+    const text = await res.text();
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; } catch { data = { raw: text }; }
+
+    if (!res.ok) {
+      const err = new Error(data?.detail || data?.message || `HTTP ${res.status}`);
+      err.status = res.status;
+      err.data = data;
+      throw err;
+    }
+
+    return data;
+  }
+
+  async function loadResult() {
+    statusText.textContent = "Loading result…";
+    try {
+      const data = await api(`/api/test/result?session_id=${encodeURIComponent(sessionId)}`);
+
+      // unlocked
+      lockedBox.hidden = true;
+      resultBox.hidden = false;
+      statusText.textContent = "Unlocked result";
+
+      iqVal.textContent = data.iq ?? "—";
+      percVal.textContent = (data.percentile != null) ? (data.percentile + "%") : "—";
+    } catch (e) {
+      if (e.status === 402) {
+        // locked
+        statusText.textContent = "Completed, but locked.";
+        lockedBox.hidden = false;
+        resultBox.hidden = true;
+      } else {
+        statusText.textContent = e.message || "Error";
+        lockedBox.hidden = true;
+        resultBox.hidden = true;
+      }
+    }
+  }
+
+  unlockBtn.addEventListener("click", async () => {
+    unlockBtn.disabled = true;
+    const oldText = unlockBtn.textContent;
+    unlockBtn.textContent = "Unlocking…";
+
+    try {
+      // HOZIRCHA DEV: Paddle yo'q, shu endpointni chaqiramiz
+      await api("/api/payment/unlock", {
+        method: "POST",
+        body: { session_id: sessionId, paid: true, paddle_txn_id: "DEV_LOCAL" }
+      });
+
+      await loadResult();
+    } catch (e) {
+      alert(e.message || "Unlock failed");
+    } finally {
+      unlockBtn.disabled = false;
+      unlockBtn.textContent = oldText;
+    }
+  });
+
+  loadResult();
+})();
+</script>
+</body>
+</html>

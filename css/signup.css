@@ -1,0 +1,285 @@
+/* =========================
+   NeoMindzLive — Sign up (Premium SaaS)
+   Works with your global :root vars
+========================= */
+
+:root{
+  --bg:#0b1220;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.68);
+  --border:rgba(255,255,255,.14);
+  --card:rgba(255,255,255,.06);
+  --card2:rgba(0,0,0,.22);
+  --accent:#4f46e5;
+}
+
+/* Reset */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 600px at 20% 10%, rgba(79,70,229,.30), transparent 55%),
+    radial-gradient(900px 600px at 80% 90%, rgba(6,182,212,.22), transparent 55%),
+    var(--bg);
+}
+
+/* Back button: always visible */
+.back-float{
+  position:fixed;
+  top:18px;
+  left:18px;
+  z-index:50;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:12px;
+  text-decoration:none;
+  color:rgba(255,255,255,.85);
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background .15s ease, border-color .15s ease, transform .15s ease;
+}
+.back-float:hover{
+  background:rgba(255,255,255,.10);
+  border-color:rgba(255,255,255,.22);
+  transform: translateY(-1px);
+}
+.back-float:focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(79,70,229,.35);
+}
+
+/* Layout: center card + footer bottom */
+.page{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:96px 20px 28px;
+  text-align:left;
+}
+
+/* Small top label inside page */
+.brand-name{
+  width:100%;
+  max-width:520px;
+  margin: 0 auto 10px;
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+}
+
+/* Card */
+.card{
+  width:100%;
+  max-width:520px;
+  border-radius:20px;
+  padding:26px 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Headings */
+.title{
+  margin:0 0 8px 0;
+  font-size:28px;
+  line-height:1.15;
+  letter-spacing:-.02em;
+}
+.subtitle{
+  margin:0 0 14px 0;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+/* Tip */
+.note{
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:14px;
+  background: rgba(0,0,0,.20);
+  border:1px dashed rgba(255,255,255,.16);
+  color: rgba(255,255,255,.72);
+  font-size:13px;
+}
+
+/* Divider */
+.divider{
+  height:1px;
+  background:rgba(255,255,255,.12);
+  margin:18px 0;
+}
+
+/* Form */
+.form{display:flex;flex-direction:column;gap:14px}
+
+/* Field */
+.field{display:flex;flex-direction:column;gap:7px}
+.label{
+  font-size:13px;
+  color:rgba(255,255,255,.70);
+}
+
+/* Inputs */
+.input{
+  height:46px;
+  padding:0 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.28);
+  color:rgba(255,255,255,.92);
+  font-size:14px;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.input::placeholder{color:rgba(255,255,255,.45)}
+.input:hover{background: rgba(0,0,0,.32)}
+.input:focus{
+  outline:none;
+  border-color: rgba(79,70,229,.70);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.22);
+}
+
+/* Help */
+.help{
+  font-size:12px;
+  color:rgba(255,255,255,.55);
+}
+
+/* Checkbox */
+.check{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:13px;
+  color:rgba(255,255,255,.68);
+  line-height:1.5;
+}
+.check input{
+  margin-top:2px;
+  width:16px;height:16px;
+  accent-color: var(--accent);
+}
+
+/* Links */
+.mail{
+  color: rgba(139, 92, 246, .95); /* premium purple */
+  text-decoration:none;
+}
+.mail:hover{text-decoration:underline}
+
+/* Buttons row */
+.actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:6px;
+}
+
+/* Primary */
+.btn-primary{
+  flex:1;
+  height:46px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: linear-gradient(135deg, rgba(79,70,229,1), rgba(99,102,241,1));
+  color:#fff;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow: 0 18px 50px rgba(79,70,229,.30);
+  transition: transform .15s ease, opacity .15s ease;
+}
+.btn-primary:hover{
+  transform: translateY(-1px);
+  opacity:.96;
+}
+.btn-primary:active{transform: translateY(0)}
+
+/* Ghost */
+.btn-ghost{
+  height:46px;
+  padding:0 16px;
+  border-radius:14px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color: rgba(255,255,255,.86);
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  transition: background .15s ease, border-color .15s ease;
+}
+.btn-ghost:hover{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+}
+
+/* Bottom line */
+.sub-actions{
+  margin: 12px 0 0;
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.65);
+}
+
+/* Footer (if you already have site-footer styles, this won't break) */
+.footer{
+  width:100%;
+  margin-top:auto;
+  padding: 18px 20px 26px;
+}
+.footer-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.footer-left{
+  font-size:13px;
+  color:rgba(255,255,255,.55);
+}
+.footer-nav{
+  display:flex;
+  gap: 14px;
+  flex-wrap:wrap;
+}
+.footer-nav a{
+  font-size:13px;
+  color: rgba(255,255,255,.70);
+  text-decoration:none;
+  padding: 6px 8px;
+  border-radius: 10px;
+  transition: background .15s ease, color .15s ease;
+}
+.footer-nav a:hover{
+  color:#fff;
+  background: rgba(255,255,255,.06);
+}
+
+/* Mobile */
+@media (max-width: 520px){
+  .page{padding-top:86px}
+  .card{padding:22px}
+  .title{font-size:24px}
+  .actions{flex-direction:column}
+  .btn-ghost{width:100%}
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log in — NeoMindzLive</title>
+
+  <!-- Global style (agar bor bo‘lsa) -->
+  <link rel="stylesheet" href="./css/support.css">
+
+  <!-- Premium auth style (signup bilan bir xil) -->
+  <link rel="stylesheet" href="./css/signup.css">
+</head>
+
+<body>
+  <a class="back-float" href="./index.html">← Back</a>
+
+  <main class="page">
+    <div class="brand-name">IQ TEST · NEOMINDZLIVE</div>
+
+    <section class="card">
+      <h1 class="title">Welcome back</h1>
+      <p class="subtitle">
+        Log in to access your saved results and continue where you left off.
+      </p>
+
+      <div class="divider"></div>
+
+      <form class="form" action="#" method="post" autocomplete="on">
+        <label class="field">
+          <span class="label">Email</span>
+          <input class="input" type="email" name="email" placeholder="you@example.com" required />
+        </label>
+
+        <label class="field">
+          <span class="label">Password</span>
+          <input class="input" type="password" name="password" placeholder="Enter your password" required />
+        </label>
+
+        <div class="actions">
+          <button class="btn-primary" type="submit">Log in</button>
+          <a class="btn-ghost" href="./index.html">Skip for now</a>
+        </div>
+
+        <p class="sub-actions">
+          Don’t have an account?
+          <a class="mail" href="./signup.html">Create one</a> (optional)
+        </p>
+
+        <p class="sub-actions" style="margin-top:6px;">
+          Forgot your password?
+          <a class="mail" href="./reset.html">Reset</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">© <span id="yy"></span> NeoMindzLive. All rights reserved.</div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="./support.html">Support center</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./terms.html">Terms</a>
+        <a href="./privacy.html">Privacy</a>
+        <a href="./refund.html">Refund</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("yy").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeoMindzLive — IQ Test</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <main class="page">
+
+        <!-- TOP RIGHT AUTH -->
+        <div class="top-actions">
+            <a class="top-link" href="./login.html">Log in</a>
+            <a class="top-btn" href="./signup.html">Sign up</a>
+        </div>
+        <!-- 1. LOGO (dumaloq ichida) -->
+        <div class="logo-circle">
+            <img src="assets/logo/logo.png" alt="NeoMindzLive logo" class="logo-img-plain">
+        </div>
+
+        <div class="app-name">IQ Test · NeoMindzLive</div>
+
+        <!-- 2. TITLE + SUBTITLE -->
+        <h1 class="title">Choose your language</h1>
+        <p class="subtitle">
+            Select English or Russian to continue to the IQ test.
+        </p>
+
+        <!-- 3. LANGUAGE BUTTONS -->
+        <a href="en.html" class="lang-btn">
+            <img class="flag" src="https://flagcdn.com/w40/us.png" alt="US">
+            <span class="lang-text">English</span>
+            <span class="arrow">→</span>
+        </a>
+
+             
+        <a href="russian.html" class="lang-btn">
+            <img class="flag" src="https://flagcdn.com/w40/ru.png" alt="RU">
+            <span class="lang-text">Русский</span>
+            <span class="arrow">→</span>
+        </a>
+
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-left">© <span id="yy"></span> NeoMindzLive. All rights reserved.</div>
+
+                <nav class="footer-nav" aria-label="Footer">
+                    <a href="./support.html">Support center</a>
+                    <a href="./contact.html">Contact</a>
+                    <a href="./terms.html">Terms</a>
+                    <a href="./privacy.html">Privacy</a>
+                    <a href="./refund.html">Refund</a>
+                </nav>
+            </div>
+
+            <script>
+                document.getElementById("yy").textContent = new Date().getFullYear();
+            </script>
+        </footer>
+
+
+    </main>
+
+    <script>
+        function selectLang(lang) {
+            localStorage.setItem("nml_lang", lang);
+            window.location.href = "./test.html?lang=" + lang;
+        }
+    </script>
+</body>
+
+</html>

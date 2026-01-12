@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeoMindzLive — IQ Test</title>
+  <link rel="stylesheet" href="./css/landing.css" />
+</head>
+
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <!-- LEFT: logo + text (NO <a>) -->
+      <div class="brand">
+        <img src="./assets/logo/logo.png" alt="NeoMindzLive" class="brand-logo" />
+
+        <div class="brand-text">
+          <div class="brand-name">NeoMindzLive</div>
+          <div class="brand-sub">IQ Test • One-time access</div>
+        </div>
+      </div>
+
+
+      <!-- RIGHT: meta + actions -->
+      <div class="topbar-right">
+        <div class="top-meta">
+          <span class="pill">$1.49 • one-time</span>
+          <span class="sep">•</span>
+          <a class="top-link" href="./support.html">Support</a>
+          <span class="sep">•</span>
+          <a class="top-link" href="./contact.html">Contact</a>
+        </div>
+
+        <div class="top-actions">
+          <a class="btn ghost" href="./login.html">Log in</a>
+          <a class="btn primary" href="./signup.html">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-badge">By experts</div>
+
+        <h1 class="hero-title">
+          Take the IQ Test — get your score instantly
+          <span class="hero-subtitle">without signing up</span>
+        </h1>
+
+        <p class="hero-desc">
+          Quick test experience, instant result page, and optional account to save results.
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn primary big" href="./checkout.html">Get my IQ score now</a>
+          <div class="hero-note">One-time payment • Secure checkout</div>
+        </div>
+
+        <div class="blob b1" aria-hidden="true"></div>
+        <div class="blob b2" aria-hidden="true"></div>
+      </div>
+
+      <!-- Feature strip -->
+      <div class="strip">
+        <div class="strip-item">
+          <div class="icon ok"></div>
+          <div>
+            <div class="strip-title">Fast</div>
+            <div class="strip-text">Finish in minutes — no signup required.</div>
+          </div>
+        </div>
+
+        <div class="strip-item">
+          <div class="icon star"></div>
+          <div>
+            <div class="strip-title">Accurate</div>
+            <div class="strip-text">Designed for clean scoring logic.</div>
+          </div>
+        </div>
+
+        <div class="strip-item">
+          <div class="icon bolt"></div>
+          <div>
+            <div class="strip-title">Fun</div>
+            <div class="strip-text">Engaging questions, modern UI.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="cards">
+
+      <a class="card" href="./checkout.html">
+        <div class="card-ico">
+          <img src="./assets/details/iqscore.png" alt="IQ Score">
+        </div>
+
+        <div class="card-title">IQ Score</div>
+        <div class="card-text">
+          Get your score instantly after completing the test.
+        </div>
+        <div class="card-link">Take test →</div>
+      </a>
+
+      <a class="card" href="./checkout.html">
+        <div class="card-ico">
+          <img src="./assets/details/sertificate.png" alt="Certificate">
+        </div>
+        <div class="card-title">IQ Certificate</div>
+        <div class="card-text">Download a certificate with your result (optional).</div>
+        <div class="card-link">Take test →</div>
+      </a>
+
+      <a class="card" href="./checkout.html">
+        <div class="card-ico">
+          <img src="./assets/details/correct.png" alt="Correct Answers">
+        </div>
+        <div class="card-title">Correct Answers</div>
+        <div class="card-text">See where you were right (or wrong) after finishing.</div>
+        <div class="card-link">Take test →</div>
+      </a>
+
+      <a class="card" href="./checkout.html">
+        <div class="card-ico">
+          <img src="./assets/details/fire.png" alt="IQ Boost">
+        </div>
+        <div class="card-title">IQ Boost</div>
+        <div class="card-text">Retake later and track improvements (with account).</div>
+        <div class="card-link">Take test →</div>
+      </a>
+
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">© <span id="yy"></span> NeoMindzLive. All rights reserved.</div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="./support.html">Support center</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./terms.html">Terms</a>
+        <a href="./privacy.html">Privacy</a>
+        <a href="./refund.html">Refund</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("yy").textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+  // 1) user id yaratib qo'yamiz (1 marta)
+  const KEY = "neomindz_user_id";
+  if (!localStorage.getItem(KEY)) {
+    localStorage.setItem(KEY, "user_" + crypto.randomUUID());
+  }
+
+  // 2) Start bosilganda test.html ga o'tamiz (popup yo'q)
+  const startBtn = document.getElementById("startBtn");
+  if (startBtn) {
+    startBtn.addEventListener("click", () => {
+      window.location.href = "./test.html";
+    });
+  }
+</script>
+</body>
+
+</html>
