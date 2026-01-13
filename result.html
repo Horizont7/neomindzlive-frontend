@@ -141,25 +141,11 @@
     }
   }
 
-  unlockBtn.addEventListener("click", async () => {
-    unlockBtn.disabled = true;
-    const oldText = unlockBtn.textContent;
-    unlockBtn.textContent = "Unlocking…";
-
-    try {
-      // HOZIRCHA DEV: Paddle yo'q, shu endpointni chaqiramiz
-      await api("/api/payment/unlock", {
-        method: "POST",
-        body: { session_id: sessionId, paid: true, paddle_txn_id: "DEV_LOCAL" }
-      });
-
-      await loadResult();
-    } catch (e) {
-      alert(e.message || "Unlock failed");
-    } finally {
-      unlockBtn.disabled = false;
-      unlockBtn.textContent = oldText;
-    }
+  unlockBtn.addEventListener("click", () => {
+    // secure flow: checkout sahifasiga o'tamiz (webhook unlock qiladi)
+    const url = new URL("./checkout.html", window.location.href);
+    url.searchParams.set("session_id", sessionId);
+    window.location.href = url.toString();
   });
 
   loadResult();

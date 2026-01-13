@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/checkout.css" />
     <script src="./js/config.js"></script>
 
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 
 <body class="page">
@@ -175,6 +176,114 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+<script id="NEO_CHECKOUT_SCRIPT">
+(() => {
+  const API_BASE = (window.NEO_API_BASE || "http://127.0.0.1:8000").replace(/\/$/, "");
+
+  function getUserId() {
+    let id = localStorage.getItem("neo_user_id");
+    if (!id) {
+      id = "user_" + crypto.randomUUID();
+      localStorage.setItem("neo_user_id", id);
+    }
+    return id;
+  }
+  const USER_ID = getUserId();
+
+  function api(path, opts = {}) {
+    const headers = Object.assign({ "Content-Type": "application/json", "X-User-Id": USER_ID }, opts.headers || {});
+    return fetch(API_BASE + path, Object.assign({}, opts, { headers }))
+      .then(async (r) => {
+        if (!r.ok) {
+          const t = await r.text().catch(() => "");
+          const err = new Error(t || ("HTTP " + r.status));
+          err.status = r.status;
+          throw err;
+        }
+        return r.json();
+      });
+  }
+
+  const params = new URLSearchParams(location.search);
+  const sessionId = params.get("session_id");
+
+  // Minimal UI: agar sahifada maxsus btn bo'lmasa ham ishlashi uchun
+  let payBtn = document.getElementById("payBtn");
+  if (!payBtn) {
+    payBtn = document.createElement("button");
+    payBtn.id = "payBtn";
+    payBtn.className = "cta-btn";
+    payBtn.type = "button";
+    payBtn.textContent = "$1.49 — Pay & Unlock";
+    const host = document.querySelector(".hero-left") || document.body;
+    host.appendChild(payBtn);
+  }
+
+  async function pollUnlock() {
+    // unlock bo'lguncha status tekshiramiz
+    for (let i = 0; i < 60; i++) { // ~60s
+      try {
+        const st = await api(`/api/test/status?session_id=${encodeURIComponent(sessionId)}`);
+        if (st?.session && st.session.result_locked === 0) {
+          const url = new URL("./result.html", window.location.href);
+          url.searchParams.set("session_id", sessionId);
+          window.location.href = url.toString();
+          return;
+        }
+      } catch (e) {}
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    alert("Payment received but unlock is still processing. Please refresh the Result page in a minute.");
+  }
+
+  payBtn.addEventListener("click", async () => {
+    if (!sessionId) {
+      alert("Missing session_id");
+      return;
+    }
+
+    // ==== PADDLE SETTINGS (fill these) ====
+    // 1) Paddle Client-side Token (Billing)
+    // 2) Price ID (Billing) or Product ID (Classic)
+    const PADDLE_CLIENT_TOKEN = window.PADDLE_CLIENT_TOKEN || ""; // TODO: set in checkout.html or config.js
+    const PADDLE_PRICE_ID = window.PADDLE_PRICE_ID || "";         // TODO: set
+
+    if (!window.Paddle) {
+      alert("Paddle script not loaded.");
+      return;
+    }
+    if (!PADDLE_CLIENT_TOKEN || !PADDLE_PRICE_ID) {
+      alert("Set PADDLE_CLIENT_TOKEN and PADDLE_PRICE_ID in checkout.html/config.js");
+      return;
+    }
+
+    try {
+      payBtn.disabled = true;
+      payBtn.textContent = "Opening checkout…";
+
+      Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
+
+      Paddle.Checkout.open({
+        items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
+        customData: { session_id: sessionId, user_id: USER_ID },
+        successCallback: function() {
+          // Unlock webhook orqali bo'ladi — polling qilamiz
+          payBtn.textContent = "Payment success. Unlocking…";
+          pollUnlock();
+        }
+      });
+    } catch (e) {
+      console.error(e);
+      alert("Checkout error: " + (e.message || e));
+    } finally {
+      payBtn.disabled = false;
+      payBtn.textContent = "$1.49 — Pay & Unlock";
+    }
+  });
+})();
+</script>
 </body>
+
 
 </html>
