@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pricing — NeoMindzLive</title>
+
+    <!-- Sen ishlatayotgan umumiy style -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="page">
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a href="./index.html" class="brand">
+                <img src="./assets/logo/logo.png" class="brand-logo" alt="NeoMindzLive">
+                <span class="brand-name">NeoMindzLive</span>
+            </a>
+
+            <div class="auth-actions">
+                <a href="./login.html" class="auth-login">Log in</a>
+                <a href="./signup.html" class="auth-signup">Sign up</a>
+            </div>
+        </div>
+    </header>
+
+
+
+    <main class="wrap">
+        <section class="pricing">
+            <div class="pricing-card">
+                <div class="pill">One-time access</div>
+                <h1 class="pricing-title">Pricing</h1>
+                <p class="pricing-subtitle">
+                    Get one-time access to our online IQ test and receive instant results.
+                </p>
+
+                <div class="pricing-price">
+                    <div class="amount">$1.49</div>
+                    <div class="meta">One-time payment · No subscription</div>
+                </div>
+
+                <ul class="pricing-list">
+                    <li>Full online IQ test</li>
+                    <li>Instant IQ score after completion</li>
+                    <li>Correct answers & breakdown</li>
+                    <li>Optional downloadable certificate</li>
+                    <li>Secure checkout via Paddle</li>
+                </ul>
+
+                <a class="pricing-btn" href="./checkout.html">Proceed to secure checkout</a>
+
+                <p class="pricing-legal">
+                    By purchasing, you agree to our
+                    <a href="./terms.html">Terms</a>,
+                    <a href="./privacy.html">Privacy Policy</a> and
+                    <a href="./refund.html">Refund Policy</a>.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-left">© <span id="yy"></span> NeoMindzLive. All rights reserved.</div>
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="./support.html">Support center</a>
+                <a href="./contact.html">Contact</a>
+                <a href="./pricing.html">Pricing</a>
+                <a href="./terms.html">Terms</a>
+                <a href="./privacy.html">Privacy</a>
+                <a href="./refund.html">Refund</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("yy").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
